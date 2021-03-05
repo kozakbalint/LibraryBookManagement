@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryBookManagementApp.src;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,34 @@ namespace LibraryBookManagementApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Book> books = new List<Book>();
+        List<Member> members = new List<Member>();
         public MainWindow()
         {
             InitializeComponent();
+            Init();
+        }
+
+        public void Init()
+        {
+            DataLoader dlb = new DataLoader(".\\docs\\konyvek.txt");
+            while (true)
+            {
+                string line = dlb.ReadLine();
+                if (line == null)
+                    break;
+                books.Add(new Book(line));
+                //asd.Content = $"{books.Count()} könyv van betöltve.";
+            }
+            DataLoader dlm = new DataLoader(".\\docs\\tagok.txt");
+            while (true)
+            {
+                string line = dlm.ReadLine();
+                if (line == null)
+                    break;
+                members.Add(new Member(line));
+                //asd2.Content = $"{members.Count()} tag van betöltve.";
+            }
         }
     }
 }

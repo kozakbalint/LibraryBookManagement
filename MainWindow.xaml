@@ -5,8 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryBookManagementApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
+    <TabControl>
+        <TabItem Header="Könyvek">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Keresés:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontSize="14"/>
+                <TextBox HorizontalAlignment="Left" Margin="75,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="200" Height="30" FontSize="14"/>
+                <ComboBox HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Width="200" Height="30" FontSize="14">
+                    <ComboBoxItem Content="Szerző"/>
+                    <ComboBoxItem Content="Cím"/>
+                    <ComboBoxItem Content="Kiadási év"/>
+                    <ComboBoxItem Content="Kiadó"/>
+                </ComboBox>
+                <DataGrid  Margin="10,0,0,0" Grid.Column="0" Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="ID" Width="20*" MaxWidth="50"/>
+                        <DataGridCheckBoxColumn Header="Kölcsönözhető" Width="20*" MaxWidth="100"/>
+                        <DataGridTextColumn Header="Szerző" Width="20*"/>
+                        <DataGridTextColumn Header="Cím" Width="20*"/>
+                        <DataGridTextColumn Header="Kiadási év" Width="20*"/>
+                        <DataGridTextColumn Header="Kiadó" Width="20*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Adatok módosítása:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalContentAlignment="Center"/>
+                <Label Content="Kölcsönözhető:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Szerző:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,43,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Cím:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Kiadási év:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,105,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Kiadó:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,138,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <CheckBox  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="118,16,0,0" Grid.Row="1" Grid.Column="1"  FontSize="15" VerticalContentAlignment="Center"/>
+                <TextBox  HorizontalAlignment="Left" Margin="68,47,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="200" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="68,80,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="200" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="84,109,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="180" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="63,142,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" MinWidth="200" FontSize="14"/>
+                <Button Content="Mentés" Grid.Column="1" HorizontalAlignment="Center" Margin="-75,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14"/>
+                <Button Content="Törlés" Grid.Column="1" HorizontalAlignment="Center" Margin="75,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14"/>
+                <Label Content="Szerző:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,258,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Cím:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,291,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Kiadási év:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,320,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Kiadó:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,353,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <TextBox  HorizontalAlignment="Left" Margin="68,262,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="68,295,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="84,324,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="184" FontSize="14"/>
+                <TextBox  HorizontalAlignment="Left" Margin="63,357,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" FontSize="14"/>
+                <Button Content="Könyv hozzáadása" Grid.Column="1" HorizontalAlignment="Center" Margin="0,386,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
