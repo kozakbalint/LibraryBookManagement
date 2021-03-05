@@ -1,19 +1,19 @@
-#Data Classes
-##Member:
+# Data Classes
+## Member:
 - id
 - name
 - date of birth
 - zip
 - city
 - street + number
-##Book:
+## Book:
 - id
 - author
 - title
 - release date
 - publisher
 - is rentable
-##Rent:
+## Rent:
 - id
 - member id
 - book id
