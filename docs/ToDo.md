@@ -20,7 +20,7 @@
 - rent date
 - rent end date
 
-ToDo:
+# ToDo:
 - [ ] responsive textboxes
 - [ ] member and rent view
 - [ ] whole backend
