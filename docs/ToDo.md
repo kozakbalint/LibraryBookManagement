@@ -19,3 +19,8 @@
 - book id
 - rent date
 - rent end date
+
+ToDo:
+- [ ] responsive textboxes
+- [ ] member and rent view
+- [ ] whole backend
