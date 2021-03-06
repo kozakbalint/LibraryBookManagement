@@ -22,6 +22,6 @@
 
 
 # ToDo:
-- [ x ] responsive textboxes
+- [x] responsive textboxes
 - [ ] member and rent view
 - [ ] whole backend
