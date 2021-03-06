@@ -20,7 +20,12 @@
 - rent date
 - rent end date
 
+<<<<<<< HEAD
 ToDo:
 - [ x ] responsive textboxes
+=======
+# ToDo:
+- [ ] responsive textboxes
+>>>>>>> fd60acd4bb29ea535268da0f953f10ce1857de13
 - [ ] member and rent view
 - [ ] whole backend
