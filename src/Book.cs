@@ -54,9 +54,9 @@ namespace LibraryBookManagementApp
             string[] splittedRecord = record.Split(';');
             id = int.Parse(splittedRecord[0]);
             author = splittedRecord[1];
-            author = splittedRecord[2];
-            author = splittedRecord[3];
-            author = splittedRecord[4];
+            title = splittedRecord[2];
+            releaseDate = splittedRecord[3];
+            publisher = splittedRecord[4];
             isRentable = bool.Parse(splittedRecord[5]);
         }
     }

@@ -26,14 +26,14 @@
                     <ComboBoxItem Content="Kiadási év"/>
                     <ComboBoxItem Content="Kiadó"/>
                 </ComboBox>
-                <DataGrid  Margin="10,0,0,0" Grid.Column="0" Grid.Row="1">
+                <DataGrid x:Name="booksDg"  Margin="10,0,0,0" Grid.Column="0" Grid.Row="1">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="ID" Width="20*" MaxWidth="50"/>
-                        <DataGridCheckBoxColumn Header="Kölcsönözhető" Width="20*" MaxWidth="100"/>
-                        <DataGridTextColumn Header="Szerző" Width="20*"/>
-                        <DataGridTextColumn Header="Cím" Width="20*"/>
-                        <DataGridTextColumn Header="Kiadási év" Width="20*"/>
-                        <DataGridTextColumn Header="Kiadó" Width="20*"/>
+                        <DataGridTextColumn Header="ID" Width="20*" Binding="{Binding Path=BookId,Mode=OneWay}" MaxWidth="50"/>
+                        <DataGridCheckBoxColumn Header="Kölcsönözhető" Binding="{Binding Path=IsRentable,Mode=OneWay}" Width="20*" MaxWidth="100"/>
+                        <DataGridTextColumn Header="Szerző" Binding="{Binding Path=BookAuthor,Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Cím" Binding="{Binding Path=BookTitle,Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Kiadási év" Binding="{Binding Path=BookReleaseDate,Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Kiadó" Binding="{Binding Path=BookPublisher,Mode=OneWay}" Width="20*"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Adatok módosítása:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center"/>
@@ -79,16 +79,17 @@
                     <ComboBoxItem Content="Település"/>
                     <ComboBoxItem Content="Utca"/>
                 </ComboBox>
-                <DataGrid  Margin="10,0,0,0" Grid.Column="0" Grid.Row="1">
+                <DataGrid x:Name="membersDg"  Margin="10,0,0,0" Grid.Column="0" Grid.Row="1">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="ID" Width="20*" MaxWidth="50"/>
-                        <DataGridCheckBoxColumn Header="Név" Width="20*"/>
-                        <DataGridTextColumn Header="Születési Dátum" Width="20*"/>
-                        <DataGridTextColumn Header="Irányítószám" Width="20*" MaxWidth="80"/>
-                        <DataGridTextColumn Header="Város" Width="20*"/>
-                        <DataGridTextColumn Header="Utca" Width="20*"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=MemberId,Mode=OneWay}" Width="20*" MaxWidth="50"/>
+                        <DataGridTextColumn Header="Név" Binding="{Binding Path=MemberName, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Születési Dátum" Binding="{Binding Path=MemberBirth, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Irányítószám" Binding="{Binding Path=MemberZip, Mode=OneWay}" Width="20*" MaxWidth="80"/>
+                        <DataGridTextColumn Header="Város" Binding="{Binding Path=MemberCity, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Utca" Binding="{Binding Path=MemberStreet, Mode=OneWay}" Width="20*"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                
                 <Label Content="Adatok módosítása:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalContentAlignment="Center"/>
                 <Label Content="Név:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
                 <Label Content="Születési dátum:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,39,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
@@ -131,7 +132,6 @@
                 <Label Content="Lejárt kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Grid.Column="1"/>
                 <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50"/>
                 <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50" Grid.Column="1"/>
-
             </Grid>
         </TabItem>
     </TabControl>

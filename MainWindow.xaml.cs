@@ -21,8 +21,8 @@ namespace LibraryBookManagementApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Book> books = new List<Book>();
-        List<Member> members = new List<Member>();
+        IList<Book> books = new List<Book>();
+        IList<Member> members = new List<Member>();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +31,10 @@ namespace LibraryBookManagementApp
 
         public void Init()
         {
+            booksDg.ItemsSource = books;
+            booksDg.AutoGenerateColumns = false;
+            membersDg.ItemsSource = members;
+            membersDg.AutoGenerateColumns = false;
             DataLoader dlb = new DataLoader(".\\docs\\konyvek.txt");
             while (true)
             {
@@ -38,7 +42,6 @@ namespace LibraryBookManagementApp
                 if (line == null)
                     break;
                 books.Add(new Book(line));
-                //asd.Content = $"{books.Count()} könyv van betöltve.";
             }
             DataLoader dlm = new DataLoader(".\\docs\\tagok.txt");
             while (true)
@@ -47,7 +50,6 @@ namespace LibraryBookManagementApp
                 if (line == null)
                     break;
                 members.Add(new Member(line));
-                //asd2.Content = $"{members.Count()} tag van betöltve.";
             }
         }
     }
