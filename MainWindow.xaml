@@ -19,10 +19,10 @@
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Keresés:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontSize="14"/>
-                <TextBox HorizontalAlignment="Left" Margin="75,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="200" Height="30" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Width="200" Height="30" FontSize="14">
-                    <ComboBoxItem Content="Szerző"/>
-                    <ComboBoxItem Content="Cím"/>
+                <TextBox x:Name="bookSearchTb" HorizontalAlignment="Left" Margin="75,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="200" Height="30" FontSize="14" TextChanged="BookSearchBox_Changed"/>
+                <ComboBox x:Name="bookSearchTypeCb" HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Width="200" Height="30" FontSize="14">
+                    <ComboBoxItem Content="Szerző" />
+                    <ComboBoxItem Content="Cím" IsSelected="True"/>
                     <ComboBoxItem Content="Kiadási év"/>
                     <ComboBoxItem Content="Kiadó"/>
                 </ComboBox>
@@ -72,8 +72,8 @@
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Keresés:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" FontSize="14"/>
-                <TextBox HorizontalAlignment="Left" Margin="75,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="200" Height="30" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Width="200" Height="30" FontSize="14">
+                <TextBox x:Name="memberSearchTb" HorizontalAlignment="Left" Margin="75,0,0,0" TextWrapping="NoWrap" VerticalAlignment="Center" Width="200" Height="30" FontSize="14" TextChanged="MemberSearchBox_Changed"/>
+                <ComboBox x:Name="memberSearchTypeCb" HorizontalAlignment="Left" Margin="280,0,0,0" VerticalAlignment="Center" Width="200" Height="30" FontSize="14">
                     <ComboBoxItem Content="Név"/>
                     <ComboBoxItem Content="Születésnap"/>
                     <ComboBoxItem Content="Település"/>

@@ -52,5 +52,35 @@ namespace LibraryBookManagementApp
                 members.Add(new Member(line));
             }
         }
+
+        private void BookSearchBox_Changed(object sender, TextChangedEventArgs e)
+        {
+            ComboBoxItem selected = (ComboBoxItem)bookSearchTypeCb.SelectedItem;
+            if (bookSearchTb.Text == "")
+                booksDg.ItemsSource = books;
+            else if (selected.Content.ToString() == "Szerző")
+                booksDg.ItemsSource = books.Where(x => x.BookAuthor.Contains(bookSearchTb.Text));
+            else if (selected.Content.ToString() == "Cím")
+                booksDg.ItemsSource = books.Where(x => x.BookTitle.Contains(bookSearchTb.Text));
+            else if (selected.Content.ToString() == "Kiadási év")
+                booksDg.ItemsSource = books.Where(x => x.BookReleaseDate.Contains(bookSearchTb.Text));
+            else
+                booksDg.ItemsSource = books.Where(x => x.BookPublisher.Contains(bookSearchTb.Text));
+        }
+
+        private void MemberSearchBox_Changed(object sender, TextChangedEventArgs e)
+        {
+            ComboBoxItem selected = (ComboBoxItem)memberSearchTypeCb.SelectedItem;
+            if (memberSearchTb.Text == "")
+                membersDg.ItemsSource = members;
+            else if (selected.Content.ToString() == "Név")
+                membersDg.ItemsSource = members.Where(x => x.MemberName.Contains(memberSearchTb.Text));
+            else if (selected.Content.ToString() == "Születésnap")
+                membersDg.ItemsSource = members.Where(x => x.MemberBirth.Contains(memberSearchTb.Text));
+            else if (selected.Content.ToString() == "Település")
+                membersDg.ItemsSource = members.Where(x => x.MemberCity.Contains(memberSearchTb.Text));
+            else
+                membersDg.ItemsSource = members.Where(x => x.MemberStreet.Contains(memberSearchTb.Text));
+        }
     }
 }
