@@ -23,6 +23,9 @@ namespace LibraryBookManagementApp
     {
         IList<Book> books = new List<Book>();
         IList<Member> members = new List<Member>();
+        IList<Rent> rents = new List<Rent>();
+        IList<Rent> outdatedRents = new List<Rent>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +38,11 @@ namespace LibraryBookManagementApp
             booksDg.AutoGenerateColumns = false;
             membersDg.ItemsSource = members;
             membersDg.AutoGenerateColumns = false;
+            rentDg.ItemsSource = rents;
+            rentDg.AutoGenerateColumns = false;
+            outdatedDg.ItemsSource = outdatedRents;
+            outdatedDg.AutoGenerateColumns = false;
+            
             DataLoader dlb = new DataLoader(".\\docs\\konyvek.txt");
             while (true)
             {
@@ -93,6 +101,7 @@ namespace LibraryBookManagementApp
                 bookTitleTb.Text = selected.BookTitle;
                 bookReleaseDateTb.Text = selected.BookReleaseDate;
                 bookPublisherTb.Text = selected.BookPublisher;
+                rentBookIdTb.Text = selected.BookId.ToString();
             }
         }
 
@@ -101,12 +110,15 @@ namespace LibraryBookManagementApp
             Book selected = (Book)booksDg.SelectedItem;
             try
             {
-                selected.IsRentable = (bool)isRentableCb.IsChecked;
-                selected.BookAuthor = bookAuthorTb.Text;
-                selected.BookTitle = bookTitleTb.Text;
-                selected.BookReleaseDate = bookReleaseDateTb.Text;
-                selected.BookPublisher = bookPublisherTb.Text;
-                booksDg.Items.Refresh();
+                if (selected != null)
+                {
+                    selected.IsRentable = (bool)isRentableCb.IsChecked;
+                    selected.BookAuthor = bookAuthorTb.Text;
+                    selected.BookTitle = bookTitleTb.Text;
+                    selected.BookReleaseDate = bookReleaseDateTb.Text;
+                    selected.BookPublisher = bookPublisherTb.Text;
+                    booksDg.Items.Refresh();
+                }
             }
             catch (Exception)
             {
@@ -130,6 +142,7 @@ namespace LibraryBookManagementApp
         private void Member_Save_Changes(object sender, RoutedEventArgs e)
         {
             Member selected = (Member)membersDg.SelectedItem;
+            int selectedIndex = members.IndexOf(selected);
             try
             {
                 selected.MemberName = memberNameTb.Text;
@@ -156,9 +169,27 @@ namespace LibraryBookManagementApp
         private void Member_Delete(object sender, RoutedEventArgs e)
         {
             Member selected = (Member)membersDg.SelectedItem;
+            int selectedIndex = members.IndexOf(selected);
             members.Remove(selected);
             membersDg.SelectedIndex = 0;
             membersDg.Items.Refresh();
+        }
+
+        private void Add_Book(object sender, RoutedEventArgs e)
+        {
+            books.Add(new Book(books.Count + 1,bookAuthorTb.Text,bookTitleTb.Text,bookReleaseDateTb.Text,bookPublisherTb.Text,(bool)isRentableCb.IsChecked));
+            booksDg.Items.Refresh();
+        }
+        private void Add_Member(object sender, RoutedEventArgs e)
+        {
+            members.Add(new Member(members.Count + 1, memberNameTb.Text,memberBirthTb.Text,int.Parse(memberZipTb.Text),memberCityTb.Text,memberStreetTb.Text));
+            membersDg.Items.Refresh();
+        }
+
+        private void Add_Rent(object sender, RoutedEventArgs e)
+        {
+            rents.Add(new Rent(rents.Count + 1, int.Parse(rentMemberIdTb.Text), int.Parse(rentBookIdTb.Text), DateTime.Today,int.Parse(rentTimeTb.Text)));
+            rentDg.Items.Refresh();
         }
     }
 }

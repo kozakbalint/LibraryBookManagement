@@ -41,5 +41,15 @@ namespace LibraryBookManagementApp
             get { return rentEndDate; }
             set { rentEndDate = value; }
         }
+
+        public Rent(int id, int memberId, int bookId, DateTime rentDate, int rentDuration)
+        {
+            this.id = id;
+            this.memberId = memberId;
+            this.bookId = bookId;
+            this.rentDate = rentDate;
+            this.rentEndDate = rentDate;
+            this.rentEndDate = rentEndDate.AddDays(rentDuration);
+        }
     }
 }

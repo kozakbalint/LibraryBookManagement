@@ -49,15 +49,16 @@
                 <TextBox x:Name="bookPublisherTb" HorizontalAlignment="Left" Margin="88,142,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="NoWrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
                 <Button Content="Mentés" Grid.Column="1" HorizontalAlignment="Left" Margin="10,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14" Click="Book_Save_Changes"/>
                 <Button Content="Törlés" Grid.Column="1" HorizontalAlignment="Left" Margin="84,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14" Click="Book_Delete"/>
-                <Button Content="Könyv hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="158,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14"/>
+                <Button Content="Könyv hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="158,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14" Click="Add_Book"/>
                 <Label Content="Kölcsönzés:" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center" Grid.Row="1"/>
                 <Label Content="Könyv ID:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,261,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
                 <Label Content="Tag neve:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,294,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
-                <Label Content="Időtartam:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,327,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
-                <TextBox  HorizontalAlignment="Left" Margin="88,265,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
-                <TextBox  HorizontalAlignment="Left" Margin="88,298,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
-                <TextBox  HorizontalAlignment="Left" Margin="88,331,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
-                <Button Content="Kölcsönzés" Grid.Column="1" HorizontalAlignment="Center" Margin="0,360,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="80" FontSize="14"/>
+                <Label Content="Időtartam (nap):"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,327,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="rentBookIdTb" HorizontalAlignment="Left" Margin="88,265,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
+                <TextBox x:Name="rentMemberIdTb" HorizontalAlignment="Left" Margin="88,298,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
+                <TextBox x:Name="rentTimeTb" HorizontalAlignment="Left" Margin="149,331,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="139"/>
+                <Button Content="Kölcsönzés" Grid.Column="1" HorizontalAlignment="Center" Margin="0,360,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="80" FontSize="14" Click="Add_Rent"/>
+
             </Grid>
         </TabItem>
         <TabItem Header="Tagok">
@@ -89,7 +90,7 @@
                         <DataGridTextColumn Header="Utca" Binding="{Binding Path=MemberStreet, Mode=OneWay}" Width="20*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
                 <Label Content="Adatok módosítása:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="18" VerticalContentAlignment="Center"/>
                 <Label Content="Név:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
                 <Label Content="Születési dátum:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,39,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
@@ -103,7 +104,7 @@
                 <TextBox x:Name="memberStreetTb" HorizontalAlignment="Left" Margin="88,126,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
                 <Button Content="Mentés" Grid.Column="1" HorizontalAlignment="Left" Margin="10,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14" Click="Member_Save_Changes"/>
                 <Button Content="Törlés" Grid.Column="1" HorizontalAlignment="Left" Margin="85,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14" Click="Member_Delete"/>
-                <Button Content="Tag hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="160,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14"/>
+                <Button Content="Tag hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="160,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14" Click="Add_Member"/>
                 <Label Content="Kölcsönzött könyvek:" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center" Grid.Row="1"/>
                 <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,225,10,0">
                     <DataGrid.Columns>
@@ -126,8 +127,24 @@
                     <RowDefinition Height="80*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="1" Margin="10,0,10,0"/>
-                <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,0,10,0"/>
+                <DataGrid Grid.Row="1" Margin="10,0,10,0" x:Name="rentDg">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="BookID" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="MemberID" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="RentDate" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="RentEndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" x:Name="outdatedDg">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="BookID" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="MemberID" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="RentDate" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="RentEndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <Label Content="Kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18"/>
                 <Label Content="Lejárt kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Grid.Column="1"/>
                 <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50"/>

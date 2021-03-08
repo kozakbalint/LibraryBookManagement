@@ -59,5 +59,15 @@ namespace LibraryBookManagementApp
             publisher = splittedRecord[4];
             isRentable = bool.Parse(splittedRecord[5]);
         }
+
+        public Book(int id, string author, string title, string releaseDate, string publisher, bool isRentable)
+        {
+            this.id = id;
+            this.author = author;
+            this.title = title;
+            this.releaseDate = releaseDate;
+            this.publisher = publisher;
+            this.isRentable = isRentable;
+        }
     }
 }

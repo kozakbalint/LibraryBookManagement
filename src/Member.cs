@@ -54,5 +54,15 @@ namespace LibraryBookManagementApp
             city = splittedRecord[4];
             street = splittedRecord[5];
         }
+
+        public Member(int id, string name, string birthDate, int zip, string city, string street)
+        {
+            this.id = id;
+            this.name = name;
+            this.birthDate = birthDate;
+            this.zip = zip;
+            this.city = city;
+            this.street = street;
+        }
     }
 }
