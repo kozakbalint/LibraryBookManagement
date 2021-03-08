@@ -82,5 +82,83 @@ namespace LibraryBookManagementApp
             else
                 membersDg.ItemsSource = members.Where(x => x.MemberStreet.Contains(memberSearchTb.Text));
         }
+
+        private void booksDg_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Book selected = (Book)booksDg.SelectedItem;
+            if (selected != null)
+            {
+                isRentableCb.IsChecked = selected.IsRentable;
+                bookAuthorTb.Text = selected.BookAuthor;
+                bookTitleTb.Text = selected.BookTitle;
+                bookReleaseDateTb.Text = selected.BookReleaseDate;
+                bookPublisherTb.Text = selected.BookPublisher;
+            }
+        }
+
+        private void Book_Save_Changes(object sender, RoutedEventArgs e)
+        {
+            Book selected = (Book)booksDg.SelectedItem;
+            try
+            {
+                selected.IsRentable = (bool)isRentableCb.IsChecked;
+                selected.BookAuthor = bookAuthorTb.Text;
+                selected.BookTitle = bookTitleTb.Text;
+                selected.BookReleaseDate = bookReleaseDateTb.Text;
+                selected.BookPublisher = bookPublisherTb.Text;
+                booksDg.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba az adatok mentésében");
+            }
+        }
+
+        private void membersDg_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Member selected = (Member)membersDg.SelectedItem;
+            if (selected != null)
+            {
+                memberNameTb.Text = selected.MemberName;
+                memberBirthTb.Text = selected.MemberBirth;
+                memberZipTb.Text = selected.MemberZip.ToString();
+                memberCityTb.Text = selected.MemberCity;
+                memberStreetTb.Text = selected.MemberStreet;
+            }
+        }
+
+        private void Member_Save_Changes(object sender, RoutedEventArgs e)
+        {
+            Member selected = (Member)membersDg.SelectedItem;
+            try
+            {
+                selected.MemberName = memberNameTb.Text;
+                selected.MemberBirth = memberBirthTb.Text;
+                selected.MemberZip = int.Parse(memberZipTb.Text);
+                selected.MemberCity = memberCityTb.Text;
+                selected.MemberStreet = memberStreetTb.Text;
+                membersDg.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba az adatok mentésében");
+            }
+        }
+
+        private void Book_Delete(object sender, RoutedEventArgs e)
+        {
+            Book selected = (Book)booksDg.SelectedItem;
+            books.Remove(selected);
+            booksDg.SelectedIndex = 0;
+            booksDg.Items.Refresh();
+        }
+
+        private void Member_Delete(object sender, RoutedEventArgs e)
+        {
+            Member selected = (Member)membersDg.SelectedItem;
+            members.Remove(selected);
+            membersDg.SelectedIndex = 0;
+            membersDg.Items.Refresh();
+        }
     }
 }
