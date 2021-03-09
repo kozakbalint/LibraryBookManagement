@@ -42,6 +42,16 @@ namespace LibraryBookManagementApp
             set { rentEndDate = value; }
         }
 
+        public Rent(string record)
+        {
+            string[] splittedRecord = record.Split(';');
+            this.id = int.Parse(splittedRecord[0]);
+            this.memberId = int.Parse(splittedRecord[1]);
+            this.bookId = int.Parse(splittedRecord[2]);
+            this.rentDate = DateTime.Parse(splittedRecord[3]);
+            this.rentEndDate = DateTime.Parse(splittedRecord[4]);
+        }
+
         public Rent(int id, int memberId, int bookId, DateTime rentDate, int rentDuration)
         {
             this.id = id;

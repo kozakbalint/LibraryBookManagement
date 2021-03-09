@@ -1,6 +1,7 @@
 ﻿using LibraryBookManagementApp.src;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace LibraryBookManagementApp
         IList<Member> members = new List<Member>();
         IList<Rent> rents = new List<Rent>();
         IList<Rent> outdatedRents = new List<Rent>();
+        IList<Rent> memberRents = new List<Rent>();
 
         public MainWindow()
         {
@@ -42,8 +44,10 @@ namespace LibraryBookManagementApp
             rentDg.AutoGenerateColumns = false;
             outdatedDg.ItemsSource = outdatedRents;
             outdatedDg.AutoGenerateColumns = false;
+            memberRentsDg.ItemsSource = memberRents;
+            memberRentsDg.AutoGenerateColumns = false;
             
-            DataLoader dlb = new DataLoader(".\\docs\\konyvek.txt");
+            DataLoader dlb = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
             while (true)
             {
                 string line = dlb.ReadLine();
@@ -51,13 +55,31 @@ namespace LibraryBookManagementApp
                     break;
                 books.Add(new Book(line));
             }
-            DataLoader dlm = new DataLoader(".\\docs\\tagok.txt");
+            DataLoader dlm = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\tagok.txt");
             while (true)
             {
                 string line = dlm.ReadLine();
                 if (line == null)
                     break;
                 members.Add(new Member(line));
+            }
+
+            DataLoader dlr = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\kolcsonzesek.txt");
+            while (true)
+            {
+                string line = dlr.ReadLine();
+                if (line == null)
+                    break;
+                rents.Add(new Rent(line));
+            }
+
+            DataLoader dlo = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\lejartkolcsonzesek.txt");
+            while (true)
+            {
+                string line = dlo.ReadLine();
+                if (line == null)
+                    break;
+                outdatedRents.Add(new Rent(line));
             }
         }
 
@@ -131,26 +153,35 @@ namespace LibraryBookManagementApp
             Member selected = (Member)membersDg.SelectedItem;
             if (selected != null)
             {
+                memberRents.Clear();
                 memberNameTb.Text = selected.MemberName;
                 memberBirthTb.Text = selected.MemberBirth;
                 memberZipTb.Text = selected.MemberZip.ToString();
                 memberCityTb.Text = selected.MemberCity;
                 memberStreetTb.Text = selected.MemberStreet;
+                var tmp = rents.Where(x => x.RentMemberId == selected.MemberId);
+                foreach (var item in tmp)
+                {
+                    memberRents.Add(item);
+                }
+                memberRentsDg.Items.Refresh();
             }
         }
 
         private void Member_Save_Changes(object sender, RoutedEventArgs e)
         {
             Member selected = (Member)membersDg.SelectedItem;
-            int selectedIndex = members.IndexOf(selected);
             try
             {
-                selected.MemberName = memberNameTb.Text;
-                selected.MemberBirth = memberBirthTb.Text;
-                selected.MemberZip = int.Parse(memberZipTb.Text);
-                selected.MemberCity = memberCityTb.Text;
-                selected.MemberStreet = memberStreetTb.Text;
-                membersDg.Items.Refresh();
+                if (selected != null)
+                {
+                    selected.MemberName = memberNameTb.Text;
+                    selected.MemberBirth = memberBirthTb.Text;
+                    selected.MemberZip = int.Parse(memberZipTb.Text);
+                    selected.MemberCity = memberCityTb.Text;
+                    selected.MemberStreet = memberStreetTb.Text;
+                    membersDg.Items.Refresh();
+                }
             }
             catch (Exception)
             {
@@ -162,34 +193,129 @@ namespace LibraryBookManagementApp
         {
             Book selected = (Book)booksDg.SelectedItem;
             books.Remove(selected);
-            booksDg.SelectedIndex = 0;
+            booksDg.SelectedItem = null;
             booksDg.Items.Refresh();
         }
 
         private void Member_Delete(object sender, RoutedEventArgs e)
         {
             Member selected = (Member)membersDg.SelectedItem;
-            int selectedIndex = members.IndexOf(selected);
             members.Remove(selected);
-            membersDg.SelectedIndex = 0;
+            membersDg.SelectedItem = null;
             membersDg.Items.Refresh();
         }
 
         private void Add_Book(object sender, RoutedEventArgs e)
         {
-            books.Add(new Book(books.Count + 1,bookAuthorTb.Text,bookTitleTb.Text,bookReleaseDateTb.Text,bookPublisherTb.Text,(bool)isRentableCb.IsChecked));
-            booksDg.Items.Refresh();
+            try
+            {
+                books.Add(new Book(books.Count + 1, bookAuthorTb.Text, bookTitleTb.Text, bookReleaseDateTb.Text, bookPublisherTb.Text, (bool)isRentableCb.IsChecked));
+                booksDg.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba tortent.");
+            }
+
         }
         private void Add_Member(object sender, RoutedEventArgs e)
         {
-            members.Add(new Member(members.Count + 1, memberNameTb.Text,memberBirthTb.Text,int.Parse(memberZipTb.Text),memberCityTb.Text,memberStreetTb.Text));
-            membersDg.Items.Refresh();
+            try
+            {
+                members.Add(new Member(members.Count + 1, memberNameTb.Text, memberBirthTb.Text, int.Parse(memberZipTb.Text), memberCityTb.Text, memberStreetTb.Text));
+                membersDg.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba tortent.");
+            }
+
         }
 
         private void Add_Rent(object sender, RoutedEventArgs e)
         {
-            rents.Add(new Rent(rents.Count + 1, int.Parse(rentMemberIdTb.Text), int.Parse(rentBookIdTb.Text), DateTime.Today,int.Parse(rentTimeTb.Text)));
-            rentDg.Items.Refresh();
+            try
+            {
+                rents.Add(new Rent(rents.Count + 1, int.Parse(rentMemberIdTb.Text), int.Parse(rentBookIdTb.Text), DateTime.Today, int.Parse(rentTimeTb.Text)));
+                var selected = books.Where(x => x.BookId == int.Parse(rentBookIdTb.Text));
+                foreach (var item in selected)
+                {
+                    item.IsRentable = false;
+                }
+                booksDg.Items.Refresh();
+                rentDg.Items.Refresh();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hiba tortent.");
+            }
+
+        }
+        private void Rent_Delete(object sender, RoutedEventArgs e)
+        {
+            Rent selected = (Rent)rentDg.SelectedItem;
+            if (selected != null)
+            {
+                int selectedBookId = selected.RentBookId;
+                var tmp = books.Where(x => x.BookId == selectedBookId);
+                foreach (var item in tmp)
+                {
+                    item.IsRentable = true;
+                }
+                rents.Remove(selected);
+                rentDg.SelectedItem = null;
+                rentDg.Items.Refresh();
+                booksDg.Items.Refresh();
+            }
+        }
+
+        private void OutdatedRent_Delete(object sender, RoutedEventArgs e)
+        {
+            Rent selected = (Rent)outdatedDg.SelectedItem;
+            if (selected != null)
+            {
+                int selectedBookId = selected.RentBookId;
+                var tmp = books.Where(x => x.BookId == selectedBookId);
+                foreach (var item in tmp)
+                {
+                    item.IsRentable = true;
+                }
+                outdatedRents.Remove(selected);
+                outdatedDg.SelectedItem = null;
+                outdatedDg.Items.Refresh();
+                booksDg.Items.Refresh();
+            }
+        }
+
+        private void Save_Data(object sender, RoutedEventArgs e)
+        {
+            DataSaver dsb = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
+            foreach (var item in books)
+            {
+                dsb.WriteLine($"{item.BookId};{item.BookAuthor};{item.BookTitle};{item.BookReleaseDate};{item.BookPublisher};{item.IsRentable}");
+            }
+            dsb.Close();
+
+            DataSaver dsm = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\tagok.txt");
+            foreach (var item in members)
+            {
+                dsm.WriteLine($"{item.MemberId};{item.MemberName};{item.MemberBirth};{item.MemberZip};{item.MemberCity};{item.MemberStreet}");
+            }
+            dsm.Close();
+
+            DataSaver dsr = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\kolcsonzesek.txt");
+            foreach (var item in rents)
+            {
+                dsr.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
+            }
+            dsr.Close();
+
+            DataSaver dso = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\lejartkolcsonzesek.txt");
+            foreach (var item in outdatedRents)
+            {
+                dso.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
+            }
+            dso.Close();
         }
     }
 }

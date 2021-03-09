@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryBookManagementApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
+        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000"
+        >
     <TabControl>
         <TabItem Header="Könyvek">
             <Grid>
@@ -52,12 +53,13 @@
                 <Button Content="Könyv hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="158,176,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14" Click="Add_Book"/>
                 <Label Content="Kölcsönzés:" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center" Grid.Row="1"/>
                 <Label Content="Könyv ID:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,261,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
-                <Label Content="Tag neve:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,294,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
+                <Label Content="Tag ID:"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,294,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
                 <Label Content="Időtartam (nap):"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,327,0,0" Grid.Column="1" Grid.Row="1" FontSize="14" VerticalContentAlignment="Center"/>
                 <TextBox x:Name="rentBookIdTb" HorizontalAlignment="Left" Margin="88,265,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
                 <TextBox x:Name="rentMemberIdTb" HorizontalAlignment="Left" Margin="88,298,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
                 <TextBox x:Name="rentTimeTb" HorizontalAlignment="Left" Margin="149,331,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="139"/>
                 <Button Content="Kölcsönzés" Grid.Column="1" HorizontalAlignment="Center" Margin="0,360,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="80" FontSize="14" Click="Add_Rent"/>
+                <Button Content="Változtatások mentése" Grid.Column="1" HorizontalAlignment="Left" Margin="88,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="142" Height="35" Click="Save_Data"/>
 
             </Grid>
         </TabItem>
@@ -106,12 +108,12 @@
                 <Button Content="Törlés" Grid.Column="1" HorizontalAlignment="Left" Margin="85,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="65" FontSize="14" Click="Member_Delete"/>
                 <Button Content="Tag hozzáadása" Grid.Column="1" HorizontalAlignment="Left" Margin="160,155,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="130" FontSize="14" Click="Add_Member"/>
                 <Label Content="Kölcsönzött könyvek:" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center" Grid.Row="1"/>
-                <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,225,10,0">
+                <DataGrid x:Name="memberRentsDg" Grid.Column="1" Grid.Row="1" Margin="10,225,10,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Width="10*"/>
-                        <DataGridTextColumn Header="Szerző" Width="30*"/>
-                        <DataGridTextColumn Header="Cím" Width="30*"/>
-                        <DataGridTextColumn Header="Kiadó" Width="30*"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="10*"/>
+                        <DataGridTextColumn Header="BookId" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="MemberId" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="EndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -147,8 +149,8 @@
                 </DataGrid>
                 <Label Content="Kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18"/>
                 <Label Content="Lejárt kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Grid.Column="1"/>
-                <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50"/>
-                <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50" Grid.Column="1"/>
+                <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50" Click="Rent_Delete"/>
+                <Button Content="Törlés" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="14" Height="30" Width="50" Grid.Column="1" Click="OutdatedRent_Delete"/>
             </Grid>
         </TabItem>
     </TabControl>
