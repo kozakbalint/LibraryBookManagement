@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:LibraryBookManagementApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000"
+        Closing="Window_Closing"
         >
     <TabControl>
         <TabItem Header="Könyvek">
@@ -59,7 +60,7 @@
                 <TextBox x:Name="rentMemberIdTb" HorizontalAlignment="Left" Margin="88,298,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="200"/>
                 <TextBox x:Name="rentTimeTb" HorizontalAlignment="Left" Margin="149,331,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Width="139"/>
                 <Button Content="Kölcsönzés" Grid.Column="1" HorizontalAlignment="Center" Margin="0,360,0,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="80" FontSize="14" Click="Add_Rent"/>
-                <Button Content="Változtatások mentése" Grid.Column="1" HorizontalAlignment="Left" Margin="88,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="142" Height="35" Click="Save_Data"/>
+                <Button Content="Változtatások mentése" Grid.Column="1" HorizontalAlignment="Left" Margin="88,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="142" Height="35"/>
 
             </Grid>
         </TabItem>
@@ -110,10 +111,10 @@
                 <Label Content="Kölcsönzött könyvek:" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="18" VerticalContentAlignment="Center" Grid.Row="1"/>
                 <DataGrid x:Name="memberRentsDg" Grid.Column="1" Grid.Row="1" Margin="10,225,10,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="10*"/>
-                        <DataGridTextColumn Header="BookId" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="30*"/>
-                        <DataGridTextColumn Header="MemberId" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
-                        <DataGridTextColumn Header="EndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="Rent Id" Binding="{Binding Path=RentId, Mode=OneWay}" Width="10*"/>
+                        <DataGridTextColumn Header="Book Id" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="Rent Date" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="End Date" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -131,20 +132,20 @@
                 </Grid.RowDefinitions>
                 <DataGrid Grid.Row="1" Margin="10,0,10,0" x:Name="rentDg">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="BookID" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="MemberID" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="RentDate" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
-                        <DataGridTextColumn Header="RentEndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="Rent Id" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Book Id" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Member Id" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Rent Date" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="End Date" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <DataGrid Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" x:Name="outdatedDg">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="BookID" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="MemberID" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
-                        <DataGridTextColumn Header="RentDate" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
-                        <DataGridTextColumn Header="RentEndDate" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Path=RentId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Book Id" Binding="{Binding Path=RentBookId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Member Id" Binding="{Binding Path=RentMemberId, Mode=OneWay}" Width="20*"/>
+                        <DataGridTextColumn Header="Rent Date" Binding="{Binding Path=RentDate, Mode=OneWay}" Width="30*"/>
+                        <DataGridTextColumn Header="End Date" Binding="{Binding Path=RentEndDate, Mode=OneWay}" Width="30*"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Kölcsönzések:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18"/>

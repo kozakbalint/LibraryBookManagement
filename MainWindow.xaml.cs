@@ -81,6 +81,20 @@ namespace LibraryBookManagementApp
                     break;
                 outdatedRents.Add(new Rent(line));
             }
+
+            CheckRents();
+        }
+
+        private void CheckRents()
+        {
+            foreach (var item in rents.ToList())
+            {
+                if (item.RentEndDate < DateTime.Today)
+                {
+                    outdatedRents.Add(item);
+                    rents.Remove(item);
+                }
+            }
         }
 
         private void BookSearchBox_Changed(object sender, TextChangedEventArgs e)
@@ -236,14 +250,21 @@ namespace LibraryBookManagementApp
         {
             try
             {
-                rents.Add(new Rent(rents.Count + 1, int.Parse(rentMemberIdTb.Text), int.Parse(rentBookIdTb.Text), DateTime.Today, int.Parse(rentTimeTb.Text)));
-                var selected = books.Where(x => x.BookId == int.Parse(rentBookIdTb.Text));
-                foreach (var item in selected)
+                if (books.Where(x=>x.BookId == int.Parse(rentBookIdTb.Text) && x.IsRentable == true).Any())
                 {
-                    item.IsRentable = false;
+                    rents.Add(new Rent(rents.Count + 1, int.Parse(rentMemberIdTb.Text), int.Parse(rentBookIdTb.Text), DateTime.Today, int.Parse(rentTimeTb.Text)));
+                    var selected = books.Where(x => x.BookId == int.Parse(rentBookIdTb.Text));
+                    foreach (var item in selected)
+                    {
+                        item.IsRentable = false;
+                    }
+                    booksDg.Items.Refresh();
+                    rentDg.Items.Refresh();
                 }
-                booksDg.Items.Refresh();
-                rentDg.Items.Refresh();
+                else
+                {
+                    return;
+                }
             }
             catch (Exception)
             {
@@ -286,8 +307,39 @@ namespace LibraryBookManagementApp
                 booksDg.Items.Refresh();
             }
         }
-
+        /*
         private void Save_Data(object sender, RoutedEventArgs e)
+        {
+            DataSaver dsb = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
+            foreach (var item in books)
+            {
+                dsb.WriteLine($"{item.BookId};{item.BookAuthor};{item.BookTitle};{item.BookReleaseDate};{item.BookPublisher};{item.IsRentable}");
+            }
+            dsb.Close();
+
+            DataSaver dsm = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\tagok.txt");
+            foreach (var item in members)
+            {
+                dsm.WriteLine($"{item.MemberId};{item.MemberName};{item.MemberBirth};{item.MemberZip};{item.MemberCity};{item.MemberStreet}");
+            }
+            dsm.Close();
+
+            DataSaver dsr = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\kolcsonzesek.txt");
+            foreach (var item in rents)
+            {
+                dsr.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
+            }
+            dsr.Close();
+
+            DataSaver dso = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\lejartkolcsonzesek.txt");
+            foreach (var item in outdatedRents)
+            {
+                dso.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
+            }
+            dso.Close();
+        }*/
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             DataSaver dsb = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
             foreach (var item in books)
