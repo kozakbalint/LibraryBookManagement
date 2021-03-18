@@ -307,7 +307,7 @@ namespace LibraryBookManagementApp
                 booksDg.Items.Refresh();
             }
         }
-        /*
+        /* Gombbal mentés 
         private void Save_Data(object sender, RoutedEventArgs e)
         {
             DataSaver dsb = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
