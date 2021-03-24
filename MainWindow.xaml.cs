@@ -47,7 +47,7 @@ namespace LibraryBookManagementApp
             memberRentsDg.ItemsSource = memberRents;
             memberRentsDg.AutoGenerateColumns = false;
             
-            DataLoader dlb = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
+            DataLoader dlb = new DataLoader(".\\docs\\konyvek.txt");
             while (true)
             {
                 string line = dlb.ReadLine();
@@ -55,7 +55,7 @@ namespace LibraryBookManagementApp
                     break;
                 books.Add(new Book(line));
             }
-            DataLoader dlm = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\tagok.txt");
+            DataLoader dlm = new DataLoader(".\\docs\\tagok.txt");
             while (true)
             {
                 string line = dlm.ReadLine();
@@ -64,7 +64,7 @@ namespace LibraryBookManagementApp
                 members.Add(new Member(line));
             }
 
-            DataLoader dlr = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\kolcsonzesek.txt");
+            DataLoader dlr = new DataLoader(".\\docs\\kolcsonzesek.txt");
             while (true)
             {
                 string line = dlr.ReadLine();
@@ -73,7 +73,7 @@ namespace LibraryBookManagementApp
                 rents.Add(new Rent(line));
             }
 
-            DataLoader dlo = new DataLoader("D:\\dev\\LibraryBookManagementApp\\docs\\lejartkolcsonzesek.txt");
+            DataLoader dlo = new DataLoader(".\\docs\\lejartkolcsonzesek.txt");
             while (true)
             {
                 string line = dlo.ReadLine();
@@ -341,28 +341,28 @@ namespace LibraryBookManagementApp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DataSaver dsb = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\konyvek.txt");
+            DataSaver dsb = new DataSaver(".\\docs\\konyvek.txt");
             foreach (var item in books)
             {
                 dsb.WriteLine($"{item.BookId};{item.BookAuthor};{item.BookTitle};{item.BookReleaseDate};{item.BookPublisher};{item.IsRentable}");
             }
             dsb.Close();
 
-            DataSaver dsm = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\tagok.txt");
+            DataSaver dsm = new DataSaver(".\\docs\\tagok.txt");
             foreach (var item in members)
             {
                 dsm.WriteLine($"{item.MemberId};{item.MemberName};{item.MemberBirth};{item.MemberZip};{item.MemberCity};{item.MemberStreet}");
             }
             dsm.Close();
 
-            DataSaver dsr = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\kolcsonzesek.txt");
+            DataSaver dsr = new DataSaver(".\\docs\\kolcsonzesek.txt");
             foreach (var item in rents)
             {
                 dsr.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
             }
             dsr.Close();
 
-            DataSaver dso = new DataSaver("D:\\dev\\LibraryBookManagementApp\\docs\\lejartkolcsonzesek.txt");
+            DataSaver dso = new DataSaver(".\\docs\\lejartkolcsonzesek.txt");
             foreach (var item in outdatedRents)
             {
                 dso.WriteLine($"{item.RentId};{item.RentMemberId};{item.RentBookId};{item.RentDate};{item.RentEndDate}");
